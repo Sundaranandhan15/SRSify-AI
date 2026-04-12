@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI-Powered SRS Generator
 
-## Getting Started
+An intelligent, modern web application designed to automatically generate professional Software Requirements Specifications (SRS) based on user-provided application ideas. Leveraging the power of Google's Gemini AI, this tool accelerates the planning phase of software development by drafting comprehensive documentation, structural diagrams, and technical requirements.
 
-First, run the development server:
+## 🌟 Key Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+*   **Intelligent SRS Generation**: Just describe your software idea, and the AI handles the heavy lifting, structuring a complete standardized SRS document.
+*   **Mermaid Diagram Integration**: Automatically generates and renders architecture and flow diagrams within the document using `mermaid.js`.
+*   **PDF Export Export**: Export your finalized generated documents to a clean, highly readable PDF format using `jsPDF` and `html2canvas`.
+*   **Modern, Responsive UI**: Built with Next.js and Tailwind CSS, featuring a beautiful UI enhanced by `lucide-react` icons.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Technology Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+*   **Framework:** [Next.js](https://nextjs.org/) (React)
+*   **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+*   **AI Integration:** [@google/generative-ai](https://www.npmjs.com/package/@google/generative-ai) (Gemini API)
+*   **Diagramming:** [Mermaid](https://mermaid.js.org/)
+*   **PDF Generation:** jsPDF & html2canvas
+*   **Icons:** Lucide React
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Getting Started
 
-## Learn More
+Follow these instructions to set up the project locally on your machine.
 
-To learn more about Next.js, take a look at the following resources:
+### Prerequisites
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+*   Node.js (v18 or higher recommended)
+*   npm (or yarn/pnpm/bun)
+*   A Google Gemini API key
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Installation
 
-## Deploy on Vercel
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/DEEPA-356/SRS-generator.git
+    cd srs-generator
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3.  **Configure environment variables:**
+    Create a `.env.local` file in the root directory of the project and add your Gemini API key:
+    ```env
+    # Example .env.local content
+    GEMINI_API_KEY=your_gemini_api_key_here
+    ```
+    *(Note: The exact variable name might depend on your implementation, typically `GEMINI_API_KEY` or `NEXT_PUBLIC_GEMINI_API_KEY`)*
+
+4.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
+
+5.  **Access the application:**
+    Open [http://localhost:3000](http://localhost:3000) in your browser to interact with the generator.
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome! Feel free to check the issues page if you want to contribute.
+
+## 📄 License
+
+This project is open-source and available under the [MIT License](LICENSE).

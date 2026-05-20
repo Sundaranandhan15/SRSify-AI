@@ -19,12 +19,6 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "No project idea provided." }, { status: 400 });
     }
 
-    // Using gemini-2.5-flash since the API key is provisioned for it
-    const model = genAI.getGenerativeModel({ 
-      model: "gemini-2.5-flash",
-      generationConfig: { responseMimeType: "application/json" }
-    });
-
     const systemPrompt = `You are an expert Software Architect and Business Analyst.
 Generate a structured Software Requirements Specification (SRS) suitable for academic submission, based on the user's project idea.
 You MUST return your response as a RAW, valid JSON object matching this exact schema:
@@ -56,7 +50,33 @@ Do NOT wrap the output in \`\`\`json markdown blocks. Return ONLY the raw parsea
       { text: `User Idea: ${idea}` }
     ];
 
-    const result = await model.generateContent(requestContent);
+    // Array of fallback models to handle 503 service unavailable or model quota issues
+    const candidateModels = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"];
+    let result = null;
+    let lastError = null;
+
+    for (const modelName of candidateModels) {
+      try {
+        console.log(`Attempting SRS generation using model: ${modelName}`);
+        const model = genAI.getGenerativeModel({ 
+          model: modelName,
+          generationConfig: { responseMimeType: "application/json" }
+        });
+        result = await model.generateContent(requestContent);
+        if (result) {
+          console.log(`Successfully generated SRS using model: ${modelName}`);
+          break;
+        }
+      } catch (err: any) {
+        console.warn(`Model ${modelName} failed or was unavailable:`, err.message || err);
+        lastError = err;
+      }
+    }
+
+    if (!result) {
+      throw lastError || new Error("All configured Gemini models failed to generate content.");
+    }
+
     let responseText = result.response.text();
     
     // Safety cleanup: strictly extract JSON boundaries
